@@ -7,7 +7,7 @@ Twoweek::Application.routes.draw do
   root to: "users#index"
   #Routes for sessions, sign in and sign out ^^
   match '/signin',  to: 'sessions#new',         via: 'get'
-  match '/signout', to: 'sessions#destroy',     via: 'delete'
+  get '/signout', to: 'sessions#destroy'
 
   get "articles/index"
   get "articles/create"
