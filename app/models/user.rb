@@ -1,5 +1,18 @@
 class User < ActiveRecord::Base
-	has_many :articles
+  before_save { self.name = name.downcase }
+  before_create :create_remember_token
+  has_secure_password
+  def User.new_remember_token
+    SecureRandom.urlsafe_base64
+  end
 
-	validates :name, :password, :presence => true
+  def User.hash(token)
+    Digest::SHA1.hexdigest(token.to_s)
+  end
+
+  private
+
+    def create_remember_token
+      self.remember_token = User.hash(User.new_remember_token)
+    end
 end

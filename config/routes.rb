@@ -1,10 +1,13 @@
 Twoweek::Application.routes.draw do
-
+  #Sessions is done by tutorial!
+  resources :sessions, only: [:new, :create, :destroy]
   resources :articles
   resources :users
 
   root to: "users#index"
-
+  #Routes for sessions, sign in and sign out ^^
+  match '/signin',  to: 'sessions#new',         via: 'get'
+  match '/signout', to: 'sessions#destroy',     via: 'delete'
 
   get "articles/index"
   get "articles/create"
